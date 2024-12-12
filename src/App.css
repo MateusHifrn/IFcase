@@ -1,0 +1,29 @@
+
+.app {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.nav {
+  margin-bottom: 20px;
+}
+
+.object {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.clue {
+  margin: 10px;
+  padding: 10px;
+  background-color: #fffae6;
+  border: 1px solid #f2c94c;
+}
+
+.mystery {
+  margin-top: 20px;
+}
