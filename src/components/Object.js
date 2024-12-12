@@ -1,3 +1,4 @@
+// Componente que representa um objeto clicável no site
 import React from 'react';
 import './Object.css';
 

@@ -1,3 +1,4 @@
+// Componente que verifica se todas as pistas foram encontradas e exibe o resultado do mistério
 import React from 'react';
 import { useClueContext } from '../context/ClueContext';
 
