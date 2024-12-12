@@ -1,4 +1,3 @@
-// Componente que exibe uma pista que pode ser clicada
 import React, { useRef, useEffect } from 'react';
 import { useClueContext } from '../context/ClueContext';
 

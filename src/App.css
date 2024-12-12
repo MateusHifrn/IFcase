@@ -1,13 +1,24 @@
 /* Estilização geral do site */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Zilla+Slab&display=swap'); 
+
 .app {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
-  background-color: #25282e;
+  background: linear-gradient(135deg, #25282e 0%, #3a434b 100%); /* Gradiente de fundo */
   color: #f0f0f0;
-  min-height: 100vh; /* Garante que o fundo cubra a altura toda da página */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Espaça conteúdo, mantendo o rodapé fixo embaixo */
+  justify-content: space-between;
+  transition: background-color 0.5s ease; /* Animação de transição suave */
+}
+
+h1 {
+  font-family: 'Zilla Slab', serif; /* Fonte para o título */
+  font-size: 3rem;
+  margin-top: 20px;
+  color: #f0f0f0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); /* Sombra para destacar o título */
 }
 
 .nav-button {
@@ -19,17 +30,21 @@
   text-decoration: none;
   border-radius: 20px;
   border: 2px solid #495058;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .nav-button:hover {
   background-color: #939fae;
+  transform: scale(1.1); /* Efeito de aumento no hover */
 }
 
 .suspects {
-  background-color: #495058;
-  padding: 10px;
+  background: linear-gradient(135deg, #495058 0%, #6e7883 100%);
+  padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .suspect-list {
@@ -41,18 +56,25 @@
 
 .suspect {
   text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Animação de fade para os suspeitos */
 }
 
 .suspect img {
-  width: 200px;  /* Aumenta a largura da imagem */
-  height: 200px;  /* Aumenta a altura da imagem */
+  width: 200px;
+  height: 200px;
   border-radius: 10px;
   margin-bottom: 5px;
+  transition: transform 0.3s ease;
+}
+
+.suspect img:hover {
+  transform: scale(1.1); /* Efeito de aumento da imagem */
 }
 
 .suspect p {
   margin: 0;
   color: #f0f0f0;
+  font-weight: bold;
 }
 
 .object-list {
@@ -64,6 +86,13 @@
 
 .object {
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.object:hover {
+  background-color: #939fae;
+  cursor: pointer;
+  transform: scale(1.1); /* Aumenta o objeto no hover */
 }
 
 .object img {
@@ -71,16 +100,12 @@
   height: 120px;
   border-radius: 10px;
   margin-bottom: 5px;
+  transition: transform 0.3s ease;
 }
 
 .object p {
   margin: 0;
   color: #f0f0f0;
-}
-
-.object:hover {
-  background-color: #939fae;
-  cursor: pointer;
 }
 
 .clue {
@@ -89,24 +114,37 @@
   background-color: #25282e;
   color: #f0f0f0;
   border: 1px solid #495058;
+  transition: transform 0.3s ease;
+}
+
+.clue:hover {
+  transform: scale(1.05); /* Efeito de aumento nas pistas */
 }
 
 .mystery {
   margin-top: 20px;
+  padding: 10px;
+  background: linear-gradient(135deg, #495058 0%, #6e7883 100%);
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Rodapé fixo */
 footer {
   background-color: #495058;
   padding: 10px 0;
   text-align: center;
   color: #f0f0f0;
-  margin-top: auto; /* Garante que o rodapé ficará no final da página */
+  margin-top: auto;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
 }
 
-/* Título "Detetive Virtual" */
-h1 {
-  font-size: 3rem;
-  margin-top: 20px;
-  color: #f0f0f0;
+/* Animação de Fade para os suspeitos */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { useClueContext } from '../context/ClueContext';
 
 const Mystery = () => {
-  const { clues } = useClueContext();
+  const { clues } = useClueContext();  // Pegando as pistas do contexto
 
   const solveMystery = () => {
     return clues.includes('password') && clues.includes('code fragment')
