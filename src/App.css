@@ -78,9 +78,50 @@ nav {
   margin: 20px 0;
 }
 
+.victim {
+  text-align: center;
+  background-color: var(--color-3);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 300px;
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  animation: fadeInUp 1s ease;
 
+}
 
+.victim-item {
+  position: relative;
+}
 
+.victim-image img {
+  position: relative; 
+  width: 320px;
+  height: 400px;
+}
+
+.victim-description {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%); 
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1em;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.victim-description:hover{
+ opacity: 1;
+}
 .suspects {
   text-align: center;
   background-color: var(--color-3);
@@ -113,7 +154,17 @@ nav {
 
 
 
-.suspect img {
+.suspect-image {
+  position: relative; 
+  display: inline-block; 
+  overflow: hidden;
+}
+
+
+.suspect-image img {
+  display: block;
+  width: 100%;
+  height: auto;
   width: 100%;
   height: 100%;
   border-style: solid;
@@ -124,36 +175,27 @@ nav {
 }
 
 
-
-
-.suspect:hover img {
-  opacity: 0.4; 
-}
-
-
-
-
-.suspect .description {
+.suspect-description {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%); 
+  background-color: rgba(0, 0, 0, 0.4);
   color: white;
   padding: 15px;
   border-radius: 10px;
-  font-size: 1.2em;
+  font-size: 1em;
   text-align: center;
-  opacity: 0; 
-  transition: opacity 0.3s ease;
-  z-index: 1; 
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
 }
 
 
-
-
-.suspect:hover .description {
-  opacity: 1; 
+.suspect-image:hover .suspect-description {
+  opacity: 1;
 }
 
 
@@ -366,7 +408,7 @@ footer {
   background-color: rgb(67, 66, 70);
   padding: 20px;
   margin: 20px auto;
-  width: 94%;
+  width: auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
   color: #ff4444; 
@@ -632,11 +674,19 @@ footer {
 
 
 .game-over-message {
+  display: flex;
+  flex-direction: column;
   font-size: 22px;
   font-weight: bold;
-  color: #333;
+  color: #48df35;
   text-align: center;
   margin-top: 20px;
+}
+
+.crimedetailss {
+  color: #60c988; /* Detalhes do crime (tom mais neutro) */
+  font-size: 1rem;
+  margin-top: 10px;
 }
 
 .story-image {
@@ -700,3 +750,43 @@ footer {
   z-index: 3;
   position: relative; 
 }
+
+/* Container principal */
+.pistas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaçamento entre os itens */
+}
+
+/* Cada item (imagem + descrição) */
+.pista-item {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  align-items: center;
+  gap: 12px; /* Espaço entre imagem e descrição */
+  border: 1px solid #414141;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem */
+.pista-imagem {
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Descrição */
+.pista-descricao {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin: 0;
+}
+
+/* Responsividade: descrição abaixo da imagem em telas pequenas */
+
+
+ 
