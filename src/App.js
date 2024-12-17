@@ -145,7 +145,7 @@ const App = () => {
 
           <nav>
             <Link className="nav-button" to="/" onClick={handleStartClick}>
-              Início
+              Começar
             </Link>
             <button className="restart-button" onClick={handleRestartClick}>
               Reiniciar
