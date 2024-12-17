@@ -1,0 +1,17 @@
+.object {
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+  }
+  
+  .object img {
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+  }
+  
+  .object:hover {
+    transform: scale(1.2) rotate(10deg);
+    opacity: 0.9;
+  }
+  

@@ -1,4 +1,3 @@
-//Contexto para gerenciar pistas no site
 import React, { createContext, useState, useContext } from 'react';
 
 const ClueContext = createContext();

@@ -1,67 +1,91 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link, useHistory } from 'react-router-dom';
 import { ClueProvider } from './context/ClueContext';
-import Mystery from './components/Mystery';
-import Object from './components/Object';
 import './App.css';
 
-// Importando as imagens diretamente
-import fundodepreso from './imagens/FundoDePreso.jpg';
-import ComputadorImage from './imagens/Computador.webp';
-import CofreImage from './imagens/Cofre.png';
-import MesaImage from './imagens/Mesa.webp';
-import LixeiraImage from './imagens/Lixeira.jpg';
-import CenaCrimeImage from './imagens/cenacrime.jpg';
+import salgadinho from './imagens/salgadinho.png';
+import cofre from './imagens/Cofre.png';
+import CenaCrimeImage from './imagens/Cenadecrime2.png';
+import BarbaraImage from './imagens/Barbara.jpg';
+import CarinaImage from './imagens/Carina.jpg';
+import CassianoImage from './imagens/Cassiano.jpg';
+import NiloImage from './imagens/Nilo.jpg';
+import TiagoImage from './imagens/Tiago.jpg';
+import DetetiveSiteImage from './imagens/Detetivesite.png';
+import maçodecigarro from './imagens/maçodecigarro.png';
+import peçadexadrez from './imagens/peçadexadrez.png';
+import tecidoverde from './imagens/tecidoverde.png';
+import desenho from './imagens/desenhomacabro.png';
+import pendrive from './imagens/pendrive.png';
+import bottom from './imagens/bottom.png';
+import chaves from './imagens/chaves da moto.png'; 
 
 const App = () => {
   const [sceneVisible, setSceneVisible] = useState(false);
-  const [foundClues, setFoundClues] = useState([]);
+  const [hoveredSuspect, setHoveredSuspect] = useState(null);
+  const [selectedSuspect, setSelectedSuspect] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
+  const [message, setMessage] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [activeContent, setActiveContent] = useState(null);
 
-  // Função que exibe a cena ao clicar em "Início"
   const handleStartClick = () => {
     setSceneVisible(true);
   };
 
-  // Função que lida com o clique nos objetos
-  const handleObjectClick = (clue) => {
-    if (!foundClues.includes(clue)) {
-      alert(`Você encontrou uma pista: ${clue}!`);
-      setFoundClues([...foundClues, clue]);
-    } else {
-      alert('Você já encontrou essa pista!');
-    }
-  };
-
-  // Função que reinicia o estado
   const handleRestartClick = () => {
     setSceneVisible(false);
-    setFoundClues([]);
+    setSelectedSuspect(null);
+    setGameOver(false);
+    setMessage("");
   };
 
-  // Lista de imagens dos objetos
-  const objectImages = {
-    Computador: ComputadorImage,
-    Cofre: CofreImage,
-    Mesa: MesaImage,
-    Lixeira: LixeiraImage,
+  const handleSuspectSelection = (suspect) => {
+    setSelectedSuspect(suspect);
+    const culprit = "Cassiano Menta";
+    if (suspect === culprit) {
+      setMessage(`Parabéns! ${suspect} é o culpado! Você solucionou o caso!`); 
+      setGameOver(true);
+    } else {
+      setMessage(`Não foi ${suspect}. Continue investigando!`);
+      setGameOver(true);
+      simularCrash(); 
+    }  
   };
 
-  // Imagens dos suspeitos
+  const simularCrash = () => {
+    
+    if (window.confirm("Você errou! O site está fechando...")) {
+      window.close(); 
+    }
+   
+    window.location.href = '/error'; 
+  };
+
+  const toggleContent = (contentId) => {
+    setActiveContent(activeContent === contentId ? null : contentId);
+  };
+
   const suspectImages = {
-    Maria: fundodepreso,
-    João: fundodepreso,
-    Gustavo: fundodepreso,
-    Luiza: fundodepreso,
-    Carlos: fundodepreso,
+    "Barbara Lima": BarbaraImage,
+    "Carina Leone": CarinaImage,
+    "Cassiano Menta": CassianoImage,
+    "Milo Castelo": NiloImage,
+    "Tiago Fritz": TiagoImage,
   };
 
-  // Posicionamento dos objetos no cenário
-  const objectPositions = [
-    { name: 'Computador', image: objectImages.Computador, clue: 'code fragment', top: '20%', left: '15%' },
-    { name: 'Cofre', image: objectImages.Cofre, clue: 'password', top: '40%', left: '50%' },
-    { name: 'Mesa', image: objectImages.Mesa, clue: 'key', top: '60%', left: '30%' },
-    { name: 'Lixeira', image: objectImages.Lixeira, clue: 'note', top: '57%', left: '80%' },
-  ];
+  const pistas = {
+    "Saco de Batata": salgadinho,
+    "Cofre": cofre,
+  };
+
+  const suspectDescriptions = {
+    "Barbara Lima": "Idade: 20 anos. Peso: 50 Kg. Personalidade: Calma e amante da natureza. Veio apenas porque seus amigos insistiram.",
+    "Carina Leone": "Idade: 22 anos. Peso: 58 Kg. Personalidade: Cérebro do grupo, gosta de enigmas e objetos colecionáveis. Ela foi porque adora explorar lugares antigos.",
+    "Cassiano Menta": "Idade: 21 anos. Peso: 67 Kg. Personalidade: Introvertido, amante de música pesada e de artes sombrias. Ele trouxe a música para a festa.",
+    "Milo Castelo": "Idade: 23 anos. Peso: 96 Kg. Personalidade: Nerd, apaixonado por tecnologia e jogos de tabuleiro. Ele foi convidado porque trouxe snacks e música.",
+    "Tiago Fritz": "Idade: 25 anos. Peso: 72 Kg. Personalidade: Rebelde, aventureiro e desafiador. Ele sugeriu a festa na mansão abandonada.",
+  };
 
   return (
     <ClueProvider>
@@ -71,12 +95,34 @@ const App = () => {
             <h1>DETETIVE VIRTUAL</h1>
           </header>
 
+          <div className="story-container">
+            <img
+              src={DetetiveSiteImage}
+              alt="Detetive Site"
+              className="story-image"
+            />
+          </div>
+          <div className="story">
+            <p>
+              A festa na mansão abandonada estava animada, mas algo deu
+              terrivelmente errado. No meio da noite, um grito ecoou pelo
+              corredor: Beatrice Portinari foi empurrada do corrimão quebrado
+              do andar superior, caindo no chão com um estrondo mortal. O caos
+              tomou conta, e todos fugiram do local, deixando para trás uma
+              série de pistas que podem levar à verdade. Agora, é sua missão
+              investigar a cena do crime!
+            </p>
+          </div>
+
+          <div className="hint-text">
+            <p>
+              ★ Analise o depoimento de cada suspeito e objetos dispersos pela sala para conectar as informações e descobrir quem foi o responsável pela morte de Beatrice. O que aconteceu naquela noite? A resposta está nas pistas que ela deixou para trás.
+            </p>
+          </div>
+
           <nav>
             <Link className="nav-button" to="/" onClick={handleStartClick}>
               Início
-            </Link>
-            <Link className="nav-button" to="/mystery">
-              Mistério
             </Link>
             <button className="restart-button" onClick={handleRestartClick}>
               Reiniciar
@@ -86,10 +132,20 @@ const App = () => {
           <div className="suspects">
             <h2>Suspeitos</h2>
             <div className="suspect-list">
-              {['Maria', 'João', 'Gustavo', 'Luiza', 'Carlos'].map((suspect) => (
-                <div className="suspect" key={suspect}>
+              {Object.keys(suspectImages).map((suspect) => (
+                <div
+                  className="suspect"
+                  key={suspect}
+                  onMouseEnter={() => setHoveredSuspect(suspect)}
+                  onMouseLeave={() => setHoveredSuspect(null)}
+                >
                   <div className="suspect-image">
                     <img src={suspectImages[suspect]} alt={suspect} />
+                    {hoveredSuspect === suspect && (
+                      <div className="suspect-description">
+                        <p>{suspectDescriptions[suspect]}</p>
+                      </div>
+                    )}
                   </div>
                   <p>{suspect}</p>
                 </div>
@@ -97,28 +153,105 @@ const App = () => {
             </div>
           </div>
 
-          {/* Cena do crime */}
           {sceneVisible && (
-            <div
-              className="crime-scene"
-              style={{ backgroundImage: `url(${CenaCrimeImage})` }}
-            >
-              {objectPositions.map((object) => (
-                <Object
-                  key={object.name}
-                  name={object.name}
-                  image={object.image}
-                  clue={object.clue}
-                  style={{ top: object.top, left: object.left }}
-                  onClick={() => handleObjectClick(object.clue)}
-                />
+            <div className="alegacoes">
+              <div className="crime-scene-container">
+                <div className="collapse-buttons">
+                  <button className="collapse-button" onClick={() => toggleContent(1)}>
+                    Depoimento 1
+                  </button>
+                  <button className="collapse-button" onClick={() => toggleContent(2)}>
+                  Depoimento 2
+                  </button>
+                  <button className="collapse-button" onClick={() => toggleContent(3)}>
+                  Depoimento 3
+                  </button>
+                  <button className="collapse-button" onClick={() => toggleContent(4)}>
+                  Depoimento 4
+                  </button>
+                  <button className="collapse-button" onClick={() => toggleContent(5)}>
+                  Depoimento 5
+                  </button>
+                </div>
+
+                {activeContent === 1 && (
+                  <div className="collapse-content">Barbara Lima: "Eu estava na
+                  sala procurando
+                  meu broche, que
+                  caiu perto da
+                  escada. Ouvi a Carina Leone falar algo
+                  sobre um mapa
+                  que ela esqueceu
+                  na mesa. Parecia
+                  que alguém
+                  estava brigando
+                  perto do corrimão
+                  quebrado,mas
+                  não vi quem."</div>
+                )}
+                {activeContent === 2 && (
+                  <div className="collapse-content"> Carina Leone: "Eu subi para explorar e deixei meu mapa na mesa. Vi o Thiago perto da escada, procurando algo A última vez que vi a vítima foi quando ela desceu com pressa... Ah, acho que o Milo tava no sofá, ele viu mais coisa que eu."</div>
+                )}
+                {activeContent === 3 && (
+                  <div className="collapse-content"> Cassiano: "Eu fiquei sentado no canto ouvindo música no meu celular. Não vi nada demais, só Milo largado no sofá. Quando ouvi o barulho do corrimão, já estava todo mundo confuso. Acho que alguém fez isso pra pegar algo importante da vítima."</div>
+                )}
+                {activeContent === 4 && (
+                  <div className="collapse-content"> Milo: "Fiquei sentado comendo salgadinhos. Vi o Cassiano mexendo no celular perto da escada e logo depois ouvi O barulho do corrimão. Ele disse que ficou no canto ouvindo música, mas ele tava andando também, não tava parado, não!"</div>
+                )}
+                {activeContent === 5 && (
+                  <div className="collapse-content">Thiago Fritz: "Perdi minha chave de moto. Eu estava no andar de baixo quando ouvi um grito e vi o corrimão caído Só lembro da Carina saindo com pressa e o Cassiano tentando esconder alguma coisa perto do cofre. Foi estranho, mas fiquei na minha."</div>
+                )}
+
+                <div className="crime-scene" style={{ backgroundImage: `url('crime-scene.jpg')` }}></div>
+              </div>
+            </div>
+          )}
+
+          {sceneVisible && (
+            <div className="crime-scene" style={{ backgroundImage: `url(${CenaCrimeImage})` }}>
+            </div>
+          )}
+
+          {sceneVisible && (
+            <div className="pistasBotoes">
+              <h3>Escolha o culpado:</h3>
+              {Object.keys(pistas).map((suspect) => (
+                <button
+                  key={suspect}
+                  className="suspect-button"
+                  onClick={() => handleSuspectSelection(suspect)}
+                >
+                  {suspect}
+                </button>
               ))}
             </div>
           )}
 
-          <Routes>
-            <Route path="/mystery" element={<Mystery />} />
-          </Routes>
+          {sceneVisible && (
+            <div className="suspect-buttons">
+              <h3>Escolha o culpado:</h3>
+              {Object.keys(suspectImages).map((suspect) => (
+                <button
+                  key={suspect}
+                  className="suspect-button"
+                  onClick={() => handleSuspectSelection(suspect)}
+                >
+                  {suspect}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {gameOver && (
+            <div className="game-over-message">
+              <p>{message}</p>
+              {typeof message === 'string' && message.includes("Continue investigando") && (
+                <button className="restart-button" onClick={handleRestartClick}>
+                  Tente Novamente!
+                </button>
+              )}
+            </div>
+          )}
 
           <footer>
             <p>© 2024 Detetive Virtual - Todos os direitos reservados</p>

@@ -1,7 +1,9 @@
+
+
 import React from 'react';
 import './Object.css';
 
-const Object = ({ name, image, clue, style, onClick }) => {
+const DetectiveObject = ({ name, image, clue, style, onClick }) => {
   return (
     <div className="object" style={style} onClick={onClick}>
       <img src={image} alt={name} />
@@ -9,4 +11,4 @@ const Object = ({ name, image, clue, style, onClick }) => {
   );
 };
 
-export default Object;
+export default DetectiveObject;
